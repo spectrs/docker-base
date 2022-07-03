@@ -19,9 +19,6 @@ RUN apk update && \
         wget \
         shadow
 
-# Needs `useradd` for some reason?
-RUN curl -L https://coder.com/install.sh | sh
-
 # Add a user `coder` so that you're not developing as the `root` user
 RUN adduser \
     -D \
@@ -30,6 +27,9 @@ RUN adduser \
     -h /home/coder \
     coder && \
     echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
+
+
+RUN curl -L https://coder.com/install.sh | sh
 
 SHELL ["/usr/bin/fish", "-c"]
 USER coder
