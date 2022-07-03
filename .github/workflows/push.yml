@@ -30,3 +30,11 @@ jobs:
           file: ./Dockerfile.alpine
           push: true
           tags: ghcr.io/spectrs/docker-base:alpine
+
+      - name: Build `ubuntu`
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile.ubuntu
+          push: true
+          tags: ghcr.io/spectrs/docker-base:ubuntu

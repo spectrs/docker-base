@@ -15,17 +15,10 @@ RUN apk update && \
         vim \
         wget
 
-# Add a user `coder` so that you're not developing as the `root` user
-#RUN useradd coder \
-#    --home=/home/coder \
-#    --shell=/usr/bin/fish \
-#    --uid=1000 \
-#    --user-group && \
-#    echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
-
 # Needs `useradd` for some reason?
 # RUN curl -L https://coder.com/install.sh | sh
 
+# Add a user `coder` so that you're not developing as the `root` user
 RUN adduser \
     -D \
     -s /usr/bin/fish \
