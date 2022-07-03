@@ -4,9 +4,12 @@ SHELL ["/bin/ash", "-c"]
 
 RUN apk update && \
     apk add fish \
+        # Needed for asdf
+        bash \
         build-base \
         ca-certificates \
         curl \
+        git \
         htop \
         python3 \
         py3-pip \
@@ -27,4 +30,13 @@ RUN adduser \
     coder && \
     echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
 
+SHELL ["/usr/bin/fish", "-c"]
 USER coder
+
+# Install asdf for managing languages (local to coder user)
+RUN git clone https://github.com/asdf-vm/asdf.git /home/coder/.asdf --branch v0.10.0 && \
+    # Add to bash just in case
+    echo ". $HOME/.asdf/asdf.sh" >> $HOME/.bashrc && \
+    echo ". $HOME/.asdf/completions/asdf.bash" >> $HOME/.bashrc && \
+    echo "source ~/.asdf/asdf.fish" >> $HOME/.config/fish/config.fish && \
+    mkdir -p $HOME/.config/fish/completions && ln -s $HOME/.asdf/completions/asdf.fish $HOME/.config/fish/completions
