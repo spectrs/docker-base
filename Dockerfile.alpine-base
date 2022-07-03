@@ -1,4 +1,4 @@
-FROM alpine:3.14
+FROM alpine:3.16
 
 SHELL ["/bin/ash", "-c"]
 
@@ -23,11 +23,15 @@ RUN apk update && \
 #    --user-group && \
 #    echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
 
+# Needs `useradd` for some reason?
+# RUN curl -L https://coder.com/install.sh | sh
+
 RUN adduser \
     -D \
     -s /usr/bin/fish \
     -u 1000 \
     -h /home/coder \
-    coder
+    coder && \
+    echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
 
 USER coder
