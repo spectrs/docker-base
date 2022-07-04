@@ -16,8 +16,8 @@ RUN apt-get update && \
       python3-pip \
       software-properties-common \
       sudo \
-      # systemd \
-      # systemd-sysv \
+      systemd \
+      systemd-sysv \
       unzip \
       vim \
       wget && \
